@@ -5,7 +5,7 @@ import com.rapidos.api_rapidoscar.entity.User;
 
 import java.util.List;
 
-public interface InterfaceClient {
+public interface InterfaceUser {
 
     User save(User user);
 

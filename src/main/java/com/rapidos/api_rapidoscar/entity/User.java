@@ -2,15 +2,17 @@ package com.rapidos.api_rapidoscar.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"username", "email"})
+})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,7 +42,10 @@ public class User implements Serializable {
     @Column(name = "username", length = 50)
     private String username;
 
-    @Column(name = "role", length = 50)
-    private String role;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "role",
+    joinColumns = @JoinColumn(name = "iduser"),
+    inverseJoinColumns = @JoinColumn(name = "idrole"))
+    private  Set<Role> roles = new HashSet<>();
 
 }

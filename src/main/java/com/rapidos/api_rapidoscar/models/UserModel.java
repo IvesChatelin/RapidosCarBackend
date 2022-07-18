@@ -32,10 +32,15 @@ public class UserModel implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserModel(Integer id, String nom, String prenom, Integer telephone, String email, Integer numcni, String username) {
+    public UserModel(Integer id, String nom, String prenom, Integer telephone, String email, Integer numcni, String username, List<GrantedAuthority> authorities) {
     }
 
     public static UserModel Detail(User user){
+
+        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
+                new SimpleGrantedAuthority(role.getName().name())
+        ).collect(Collectors.toList());
+
         return new UserModel(
                 user.getId(),
                 user.getNom(),
@@ -43,7 +48,8 @@ public class UserModel implements UserDetails {
                 user.getTelephone(),
                 user.getEmail(),
                 user.getNumcni(),
-                user.getUsername()
+                user.getUsername(),
+                authorities
         );
 
     }

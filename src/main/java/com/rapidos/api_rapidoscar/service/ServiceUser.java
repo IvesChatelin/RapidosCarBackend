@@ -7,17 +7,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ServiceClient implements InterfaceClient {
+public class ServiceUser implements InterfaceUser {
 
-    private UserRepository clientRepository;
+    private UserRepository userRepository;
 
-    public ServiceClient(UserRepository clientRepository) {
-        this.clientRepository = clientRepository;
+    public ServiceUser(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public User save(User user) {
-        return clientRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
@@ -32,6 +32,6 @@ public class ServiceClient implements InterfaceClient {
 
     @Override
     public List<User> getAll() {
-        return clientRepository.findAll();
+        return userRepository.findAll();
     }
 }
