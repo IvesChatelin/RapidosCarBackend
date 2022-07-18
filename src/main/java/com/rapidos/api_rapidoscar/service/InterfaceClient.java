@@ -1,16 +1,17 @@
 package com.rapidos.api_rapidoscar.service;
 
-import com.rapidos.api_rapidoscar.entity.Client;
+
+import com.rapidos.api_rapidoscar.entity.User;
 
 import java.util.List;
 
 public interface InterfaceClient {
 
-    Client save(Client client);
+    User save(User user);
 
     void delete(Integer id);
 
-    Client update(Client client, Integer id);
+    User update(User user, Integer id);
 
-    List<Client> getAll();
+    List<User> getAll();
 }

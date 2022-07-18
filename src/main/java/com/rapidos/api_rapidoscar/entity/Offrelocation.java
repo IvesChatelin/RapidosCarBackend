@@ -31,44 +31,4 @@ public class Offrelocation implements Serializable {
     @Column(name = "libelle", length = 254)
     private String libelle;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Agence getIdagence() {
-        return idagence;
-    }
-
-    public void setIdagence(Agence idagence) {
-        this.idagence = idagence;
-    }
-
-    public LocalDate getDateoffre() {
-        return dateoffre;
-    }
-
-    public void setDateoffre(LocalDate dateoffre) {
-        this.dateoffre = dateoffre;
-    }
-
-    public LocalDate getDatefin() {
-        return datefin;
-    }
-
-    public void setDatefin(LocalDate datefin) {
-        this.datefin = datefin;
-    }
-
-    public String getLibelle() {
-        return libelle;
-    }
-
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
-    }
-
 }

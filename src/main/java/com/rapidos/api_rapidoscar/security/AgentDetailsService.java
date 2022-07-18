@@ -1,9 +1,14 @@
 package com.rapidos.api_rapidoscar.security;
 
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public interface AgentDetailsService {
+public class AgentDetailsService implements UserDetailsService {
 
-    UserDetails loadUserByLogin(String login);
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
+    }
 }

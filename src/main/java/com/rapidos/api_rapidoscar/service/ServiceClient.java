@@ -1,7 +1,7 @@
 package com.rapidos.api_rapidoscar.service;
 
-import com.rapidos.api_rapidoscar.entity.Client;
-import com.rapidos.api_rapidoscar.repository.ClientRepository;
+import com.rapidos.api_rapidoscar.entity.User;
+import com.rapidos.api_rapidoscar.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,15 +9,15 @@ import java.util.List;
 @Service
 public class ServiceClient implements InterfaceClient {
 
-    private ClientRepository clientRepository;
+    private UserRepository clientRepository;
 
-    public ServiceClient(ClientRepository clientRepository) {
+    public ServiceClient(UserRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
     @Override
-    public Client save(Client client) {
-        return clientRepository.save(client);
+    public User save(User user) {
+        return clientRepository.save(user);
     }
 
     @Override
@@ -26,12 +26,12 @@ public class ServiceClient implements InterfaceClient {
     }
 
     @Override
-    public Client update(Client client, Integer id) {
+    public User update(User user, Integer id) {
         return null;
     }
 
     @Override
-    public List<Client> getAll() {
+    public List<User> getAll() {
         return clientRepository.findAll();
     }
 }
