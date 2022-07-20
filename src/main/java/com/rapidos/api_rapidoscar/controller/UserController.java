@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -62,7 +62,6 @@ public class UserController {
                         try{
                             Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN);
                             roles.add(adminRole);
-                            break;
                         }catch (Exception e){
                             e.getMessage();
                         }
@@ -70,9 +69,8 @@ public class UserController {
 
                     case "agence":
                         try{
-                            Role agenceRole = roleRepository.findByName(RoleName.ROLE_Agence);
+                            Role agenceRole = roleRepository.findByName(RoleName.ROLE_AGENCE);
                             roles.add(agenceRole);
-                            break;
                         }catch (Exception e){
                             e.getMessage();
                         }
@@ -82,7 +80,6 @@ public class UserController {
                         try{
                             Role userRole = roleRepository.findByName(RoleName.ROLE_USER);
                             roles.add(userRole);
-                            break;
                         }catch (Exception e){
                             e.getMessage();
                         }

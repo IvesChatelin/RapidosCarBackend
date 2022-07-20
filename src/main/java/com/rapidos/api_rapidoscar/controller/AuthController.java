@@ -12,9 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("login")
+@RequestMapping("auth")
 public class AuthController {
 
     AuthenticationManager authenticationManager;
@@ -23,7 +22,7 @@ public class AuthController {
 
     JwtProvider jwtProvider;
 
-    @PostMapping("/")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody() LoginModel loginModel){
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -35,5 +34,10 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(auth);
         String jwt = jwtProvider.generateJwtToken(auth);
         return ResponseEntity.ok(new JwtResponce(jwt));
+    }
+
+    @GetMapping("/login")
+    public void logout(){
+
     }
 }

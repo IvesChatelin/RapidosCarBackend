@@ -10,6 +10,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SingupModel {
+
     private int id;
     private String nom;
     private String prenom;

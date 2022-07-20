@@ -1,6 +1,5 @@
 package com.rapidos.api_rapidoscar.security;
 
-import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,59 +15,57 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
 @Configuration
 @EnableGlobalMethodSecurity(
         prePostEnabled = true
 )
-public class SeucirtyConfig extends WebSecurityConfigurerAdapter {
+public class SeucirtyConfig extends WebSecurityConfigurerAdapter{
 
-
+    @Autowired
     UserDetailsService userDetailsService;
 
-
+    @Autowired
     JwtEntryPoint jwtEntryPoint;
 
     @Bean
-    public JwtTokenFilter authenticationFilter(){
+    public JwtTokenFilter authenticationFilter() {
         return new JwtTokenFilter();
     }
 
+
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
-        auth
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
-
     }
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception{
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
-        http.cors().and().csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/client/**").permitAll()
+        http.cors().and().csrf().disable().
+                authorizeRequests()
+                .antMatchers("/api/user/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtEntryPoint).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
 
-        http.addFilterBefore(authenticationFilter(),UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
@@ -80,6 +77,6 @@ public class SeucirtyConfig extends WebSecurityConfigurerAdapter {
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         source.registerCorsConfiguration("/**",configuration);
-        return new CorsFilter();
+        return new CorsFilter(source);
     }
 }

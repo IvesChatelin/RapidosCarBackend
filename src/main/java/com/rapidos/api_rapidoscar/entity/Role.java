@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "roles")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role {
+public class Role implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
